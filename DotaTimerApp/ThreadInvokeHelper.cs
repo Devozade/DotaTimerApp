@@ -16,10 +16,10 @@ namespace DotaTimerApp
 
         public static void SetText(Form form, Label ctrl, string text)
         {
-            if (ctrl.InvokeRequired)
+            if (ctrl.InvokeRequired && !ctrl.IsDisposed)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
-                form.Invoke(d, new object[] { form, ctrl, text });
+                form.BeginInvoke(d, new object[] { form, ctrl, text });
             }
             else
             {
@@ -32,7 +32,7 @@ namespace DotaTimerApp
             if (button.InvokeRequired)
             {
                 DisableButtonCallback d = new DisableButtonCallback(DisableButton);
-                form.Invoke(d, new object[] { form, button });
+                form.BeginInvoke(d, new object[] { form, button });
             }
             else
             {
@@ -44,7 +44,7 @@ namespace DotaTimerApp
             if (button.InvokeRequired)
             {
                 EnableButtonCallback d = new EnableButtonCallback(EnableButton);
-                form.Invoke(d, new object[] { form, button });
+                form.BeginInvoke(d, new object[] { form, button });
             }
             else
             {
@@ -56,7 +56,7 @@ namespace DotaTimerApp
         {
             if (form.InvokeRequired)
             {
-                form.Invoke(method, new object[] { });
+                form.BeginInvoke(method, new object[] { });
             }
             else
             {
