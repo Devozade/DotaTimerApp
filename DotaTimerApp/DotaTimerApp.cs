@@ -1,7 +1,3 @@
-using System.Configuration;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
 namespace DotaTimerApp
 {
     public partial class DotaTimerAppForm : Form
@@ -27,12 +23,19 @@ namespace DotaTimerApp
             UpdateTimeLabel(elapsedTimeSeconds);
             CheckButtonAuthorisation();
             CheckCountdownLabels(elapsedTimeSeconds);
-            //CheckReminders(elapsedTimeSeconds);
+            CheckReminders(elapsedTimeSeconds);
         }
         private void startTimerButton_Click(object sender, EventArgs e)
         {
+            
             dotaTimerCurrent.Start();
             CheckButtonAuthorisation();
+
+            if (dotaTimerCurrent.GetCurrentTime() != TimeSpan.Zero)
+            {
+                TextToSpeechLogic.SaySomething("Game timer resumed.");
+                return;
+            }
 
             TextToSpeechLogic.SaySomething("Game timer started.");
 
@@ -95,15 +98,13 @@ namespace DotaTimerApp
 
         private void roshanDiedButton_Click(object sender, EventArgs e)
         {
-            (int roshanNumber, bool isAegisInPlay, TimeSpan lastRoshanDeath, String roshanDrops) = dotaTimes.RoshanDied(dotaTimerCurrent.GetCurrentTimeToNearestSecond());
+            (int roshanNumber, bool isAegisInPlay, TimeSpan lastRoshanDeath, String roshanDrops, string earlyTime, string lateTime) = dotaTimes.RoshanDied(dotaTimerCurrent.GetCurrentTimeToNearestSecond());
 
             ThreadInvokeHelper.SetText(this, roshanNumberLabel, $"Current Roshan #: {roshanNumber.ToString()}");
             ThreadInvokeHelper.SetText(this, aegisInPlayLabel, $"Aegis in Play: Yes");
             ThreadInvokeHelper.SetText(this, roshanLastDeathTimestampLabel, $"Last Death: {lastRoshanDeath.ToString("mm\\:ss")}");
             ThreadInvokeHelper.SetText(this, roshanDropsLabel, $"Drops: {roshanDrops}");
             ThreadInvokeHelper.SetText(this, aegisTimerLabel, $"Current Aegis Timer: 5:00");
-            (string earlyTime, string lateTime) = dotaTimes.GetRoshanSpawnIntervals(dotaTimerCurrent.GetCurrentTimeToNearestSecond());
-
             ThreadInvokeHelper.SetText(this, roshanNextPossibleSpawnTimestampLabel, $"Next Spawn Interval: " + earlyTime + "-" + lateTime);
             CheckButtonAuthorisation();
 
@@ -179,7 +180,7 @@ namespace DotaTimerApp
             CheckFixedSpawns(elapsedTime);
             CheckNeutralTier(elapsedTime);
         }
-
+        //need to clean this up - also not properly setting string to N/A on expiry
         private void CheckAegisTimer(TimeSpan elapsedTime)
         {
             TimeSpan aegisTimeLeft = dotaTimes.CheckAegisTimer(elapsedTime);
@@ -188,6 +189,7 @@ namespace DotaTimerApp
             if (aegisTimeLeft == TimeSpan.Zero)
             {
                 aegisTimeLeftText = "Current Aegis Timer: N/A";
+                dotaTimes.AegisExpired();
                 ThreadInvokeHelper.SetText(this, aegisTimerLabel, aegisTimeLeftText);
                 return;
             }
@@ -248,23 +250,22 @@ namespace DotaTimerApp
 
             TextToSpeechLogic.SaySomething($"Neutral item tier {neutralTier} started");
         }
-
-        // WIP -
         private void CheckReminders(TimeSpan elapsedTime)
         {
             bool[] remindersNeedChecking = dotaTimes.CheckReminders(elapsedTime);
-            string event1 = $"Roshan potentially respawning in {dotaTimes._roshanReminderEarlyMinutes} minutes.";
-            string event2 = $"Wisdom runes spawning in {dotaTimes._wisdomRuneReminderEarlyMinutes} minute.";
+            string[] eventCollection = new string[remindersNeedChecking.Count()];
 
-            foreach (bool b in remindersNeedChecking)
+            eventCollection[0] = $"Roshan potentially respawning in {dotaTimes._roshanReminderEarlyMinutes} minutes.";
+            eventCollection[1] = $"Roshan definitely respawning in {dotaTimes._roshanReminderEarlyMinutes} minutes.";
+            eventCollection[2] = $"Wisdom runes spawning in {dotaTimes._wisdomRuneReminderEarlyMinutes} minute.";
+
+            for (int b = 0; b < remindersNeedChecking.Length; b++)
             {
-                if (b)
+                if (remindersNeedChecking[b])
                 {
-
-                    //TextToSpeechLogic.SaySomething("b");
+                    TextToSpeechLogic.SaySomething(eventCollection[b]);
                 }
             }
-
         }
 
         private void aegisCarrierDiedButton_Click(object sender, EventArgs e)
