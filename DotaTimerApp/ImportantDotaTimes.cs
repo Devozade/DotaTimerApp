@@ -26,7 +26,10 @@ namespace DotaTimerApp
         private int _TormentorRespawnMinutes = 10;
 
         private int _lotusRespawnIntervalMinutes = 3;
-        private int _wisdomRunRespawnMinutes = 7;
+        private int _wisdomRuneRespawnMinutes = 7;
+
+        public int _roshanReminderEarlyMinutes = 2;
+        public int _wisdomRuneReminderEarlyMinutes = 1;
 
         //always make sure these are in hh:mm:ss
         private string _neutralTier1 = "00:07:00";
@@ -51,7 +54,7 @@ namespace DotaTimerApp
             _isRadiantTormentorUp = false;
             _isDireTormentorUp = false;
             _nextLotusSpawn = TimeSpan.FromMinutes(_lotusRespawnIntervalMinutes);
-            _nextWisdomRuneSpawn = TimeSpan.FromMinutes(_wisdomRunRespawnMinutes);
+            _nextWisdomRuneSpawn = TimeSpan.FromMinutes(_wisdomRuneRespawnMinutes);
             _currentNeutralTier = 1;
         }
         public (int, bool, TimeSpan, string) RoshanDied(TimeSpan currentTime)
@@ -69,10 +72,10 @@ namespace DotaTimerApp
             switch (_currentRoshan)
             {
                 case 1:
-                    return "Aegis";                   
+                    return "Aegis";
                 case 2:
                     return "Aegis && Cheese";
-                case >=3:
+                case >= 3:
                     return "Aegis, Cheese && Aghs Radiant/Dire Refresher";
                 default:
                     return "Aegis";
@@ -85,7 +88,7 @@ namespace DotaTimerApp
             var earliestSpawn = roshanDiedTime.Add(TimeSpan.FromMinutes(_roshanRespawnMinMinutes));
 
             var latestSpawn = roshanDiedTime.Add(TimeSpan.FromMinutes(_roshanRespawnMaxMinutes));
-                       
+
             _earliestRoshanSpawn = earliestSpawn;
             _latestRoshanSpawn = latestSpawn;
 
@@ -102,7 +105,7 @@ namespace DotaTimerApp
             {
                 _isRoshanAlive = true;
                 return true;
-            
+
             }
             _isRoshanAlive = false;
             return false;
@@ -174,8 +177,8 @@ namespace DotaTimerApp
             }
             if (returnedTimes[1] == TimeSpan.Zero)
             {
-                _nextWisdomRuneSpawn += TimeSpan.FromMinutes(_wisdomRunRespawnMinutes);
-            }      
+                _nextWisdomRuneSpawn += TimeSpan.FromMinutes(_wisdomRuneRespawnMinutes);
+            }
 
             return returnedTimes;
         }
@@ -186,46 +189,87 @@ namespace DotaTimerApp
             return checkTime - currentTime;
         }
 
-        public string CheckNeutralTier(TimeSpan currentTime)
+        public int CheckNeutralTier(TimeSpan currentTime)
         {
             int tier;
 
             if (currentTime < TimeSpan.Parse(_neutralTier1))
             {
-                return $"Too early for Neutral drops.";
+                tier = 0;
+                return tier;
             }
 
             if (currentTime < TimeSpan.Parse(_neutralTier2))
             {
                 tier = 1;
-                return ReturnNeutralTierText(tier);
+                return tier;
             }
 
             if (currentTime < TimeSpan.Parse(_neutralTier3))
             {
                 tier = 2;
-                return ReturnNeutralTierText(tier);
+                return tier;
             }
             if (currentTime < TimeSpan.Parse(_neutralTier4))
             {
                 tier = 3;
-                return ReturnNeutralTierText(tier);
+                return tier;
             }
             if (currentTime < TimeSpan.Parse(_neutralTier5))
             {
                 tier = 4;
-                return ReturnNeutralTierText(tier);
+                    return tier;
             }
             if (currentTime > TimeSpan.Parse(_neutralTier5))
             {
                 tier = 5;
-                return ReturnNeutralTierText(tier);
+                return tier;
             }
-            return $"Error with tier calc.";
+
+            tier = 0;
+            return tier;
         }
-        private string ReturnNeutralTierText(int tier)
+        public string ReturnNeutralTierText(int tier)
         {
-            return $"Current Neutral Item Tier: {tier.ToString()}.";
+            if (tier == 0)
+            {
+                return $"Too early for Neutral drops. Next tier starts at 7:00";
+            }
+
+            TimeSpan nextTierTime = new();
+
+            switch (tier)
+            {
+                case 1:
+                    nextTierTime = TimeSpan.Parse(_neutralTier2);
+                    break;
+                case 2:
+                    nextTierTime = TimeSpan.Parse(_neutralTier3);
+                    break;
+                case 3:
+                    nextTierTime = TimeSpan.Parse(_neutralTier4);
+                    break;
+                case 4:
+                    nextTierTime = TimeSpan.Parse(_neutralTier5);
+                    break;
+                case 5:
+                    nextTierTime = TimeSpan.Zero;
+                    break;
+                default:
+                    nextTierTime = TimeSpan.Parse(_neutralTier1);
+                    break;
+            }
+
+            string timeStampText = nextTierTime.ToString("mm\\:ss");
+
+            if (nextTierTime == TimeSpan.Zero)
+            {
+                return "$Current Neutral Item Tier: 5";
+            }
+            else
+            {
+                return $"Current Neutral Item Tier: {tier.ToString()}. Next tier starts at {timeStampText}";
+            }           
         }
 
         public TimeSpan CheckAegisTimer(TimeSpan currentTime)
@@ -242,6 +286,34 @@ namespace DotaTimerApp
             }
 
             return timeDifference;
+        }
+        // to complete
+        public bool[] CheckReminders(TimeSpan currentTime)
+        {
+            TimeSpan[] nextSpawnsToCheckFor = { _earliestRoshanSpawn, _nextLotusSpawn };
+            int[] earlyReminderMinutes = { _roshanReminderEarlyMinutes, _wisdomRuneReminderEarlyMinutes };
+
+            TimeSpan[] reminderTimes = new TimeSpan[nextSpawnsToCheckFor.Length];
+
+            for (int i=0; i < nextSpawnsToCheckFor.Length; i++ )
+            {
+                TimeSpan checkTime = nextSpawnsToCheckFor[i];
+                int reminderWindow = earlyReminderMinutes[i];
+
+                TimeSpan triggerTime = checkTime - TimeSpan.FromMinutes(reminderWindow);
+                reminderTimes[i] = triggerTime;
+            }
+
+            bool[] eventNeedsTriggering = new bool[reminderTimes.Length];
+
+            for (int i = 0; i < reminderTimes.Length; i++)
+            {
+                if (currentTime == reminderTimes[i])
+                {
+                    eventNeedsTriggering[i] = true;
+                }
+            }
+            return eventNeedsTriggering;           
         }
     }
 }

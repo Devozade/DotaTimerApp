@@ -27,6 +27,7 @@ namespace DotaTimerApp
             UpdateTimeLabel(elapsedTimeSeconds);
             CheckButtonAuthorisation();
             CheckCountdownLabels(elapsedTimeSeconds);
+            //CheckReminders(elapsedTimeSeconds);
         }
         private void startTimerButton_Click(object sender, EventArgs e)
         {
@@ -68,7 +69,7 @@ namespace DotaTimerApp
             direTormentorLabel.Text = "Tormentor Spawn: 20:00";
             nextLotusSpawnLabel.Text = "Next Lotus Spawn: 3:00";
             nextWisdowRuneSpawn.Text = "Next Wisdow Rune Spawn: 7:00";
-            currentNeutralTierLabel.Text = "Too early for Neutral drops.";
+            currentNeutralTierLabel.Text = "Too early for Neutral drops. Next tier starts at 7:00";
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -219,9 +220,36 @@ namespace DotaTimerApp
         {
             TimeSpan currentTime = elapsedTime;
 
-            string neutralTierLabel = dotaTimes.CheckNeutralTier(currentTime);
+            int neutralTier = dotaTimes.CheckNeutralTier(currentTime);
+
+            string neutralTierLabel = dotaTimes.ReturnNeutralTierText(neutralTier);
+
+            if (currentNeutralTierLabel.Text == neutralTierLabel)
+            {
+                return;
+            }
 
             ThreadInvokeHelper.SetText(this, currentNeutralTierLabel, neutralTierLabel);
+
+            TextToSpeechLogic.SaySomething($"Neutral item tier {neutralTier} started");
+        }
+
+        // WIP -
+        private void CheckReminders(TimeSpan elapsedTime)
+        {
+            bool[] remindersNeedChecking = dotaTimes.CheckReminders(elapsedTime);
+            string event1 = $"Roshan potentially respawning in {dotaTimes._roshanReminderEarlyMinutes} minutes.";
+            string event2 = $"Wisdom runes spawning in {dotaTimes._wisdomRuneReminderEarlyMinutes} minute.";
+
+            foreach (bool b in remindersNeedChecking)
+            {
+                if (b)
+                {
+
+                    //TextToSpeechLogic.SaySomething("b");
+                }
+            }
+
         }
 
         private void aegisCarrierDiedButton_Click(object sender, EventArgs e)
