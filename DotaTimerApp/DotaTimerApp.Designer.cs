@@ -228,7 +228,7 @@ namespace DotaTimerApp
             currentNeutralTierLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             currentNeutralTierLabel.Location = new Point(75, 417);
             currentNeutralTierLabel.Name = "currentNeutralTierLabel";
-            currentNeutralTierLabel.Size = new Size(176, 19);
+            currentNeutralTierLabel.Size = new Size(317, 19);
             currentNeutralTierLabel.TabIndex = 15;
             currentNeutralTierLabel.Text = "Too early for Neutral drops. Next tier starts at 7:00";
             // 
@@ -280,7 +280,6 @@ namespace DotaTimerApp
             // 
             // neutralItemPicture
             // 
-            neutralItemPicture.Image = Properties.Resources.neutralToken1;
             neutralItemPicture.Location = new Point(25, 410);
             neutralItemPicture.Name = "neutralItemPicture";
             neutralItemPicture.Size = new Size(44, 32);

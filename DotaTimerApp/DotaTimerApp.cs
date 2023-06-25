@@ -17,7 +17,7 @@ namespace DotaTimerApp
 
             dotaTimerCurrent.DotaStopwatchSecondElapsed += StopwatchLogic_DotaStopwatchSecondElapsed;
 
-            InitialiseDefaultLabels();
+            InitialiseDefaults();
             CheckButtonAuthorisation();
         }
         private void StopwatchLogic_DotaStopwatchSecondElapsed(object sender, EventArgs e)
@@ -51,10 +51,16 @@ namespace DotaTimerApp
             dotaTimerCurrent.Reset();
             UpdateTimeLabel(TimeSpan.Zero);
             dotaTimes.ResetAll();
-            InitialiseDefaultLabels();
+            InitialiseDefaults();
             CheckButtonAuthorisation();
 
             TextToSpeechLogic.SaySomething("Tracker Reset");
+        }
+
+        private void InitialiseDefaults()
+        {
+            InitialiseDefaultLabels();
+            ResetNeutralImage();
         }
 
         private void InitialiseDefaultLabels()
@@ -70,6 +76,11 @@ namespace DotaTimerApp
             nextLotusSpawnLabel.Text = "Next Lotus Spawn: 3:00";
             nextWisdowRuneSpawn.Text = "Next Wisdow Rune Spawn: 7:00";
             currentNeutralTierLabel.Text = "Too early for Neutral drops. Next tier starts at 7:00";
+        }
+
+        private void ResetNeutralImage()
+        {
+            neutralItemPicture.Image = null;
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -230,6 +241,10 @@ namespace DotaTimerApp
             }
 
             ThreadInvokeHelper.SetText(this, currentNeutralTierLabel, neutralTierLabel);
+
+            string neutralImage = $"neutralToken{neutralTier}";
+
+            ThreadInvokeHelper.updateImage(this, neutralItemPicture, neutralImage);
 
             TextToSpeechLogic.SaySomething($"Neutral item tier {neutralTier} started");
         }

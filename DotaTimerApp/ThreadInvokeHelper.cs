@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,6 +62,23 @@ namespace DotaTimerApp
             else
             {
                 method();
+            }
+        }
+
+        public static void updateImage(Form form,PictureBox pictureBox, string resourceName)
+        {
+            Image image = (Image)Properties.Resources.ResourceManager.GetObject(resourceName);
+
+            if (image != null)
+            {
+                if (pictureBox.InvokeRequired)
+                {
+                    pictureBox.Invoke(new Action(() => {pictureBox.Image = image;}));
+                }
+                else
+                {
+                    pictureBox.Image = image;
+                }
             }
         }
     }
