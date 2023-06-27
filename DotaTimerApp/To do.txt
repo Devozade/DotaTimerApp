@@ -1,0 +1,20 @@
+﻿PRIORITY
+-Completely rewrite Timer App Logic, all new hooks using the GameTimersClassLibrary, so may be worth doing from scratch.
+-Find a way to interface between form and logic so that differnt UIs could easily be hooked in
+
+CLEANUP ONCE PRIORITY DONE
+-Remove TimeSpanCalc Class in DotaTimerApp as it shouldn't be required anymore
+
+Further refactoring
+-Possibly Move ThreadInvokeHelper to own project class library
+-Possibly move out stopwatch logic
+-Move TTS out
+
+More tests
+Add tests for form logic
+Add tests for string library
+
+
+Wishlist
+-Implement Settings and reading them to feed into notifications and using settings
+-Potentially redo UI in WPF

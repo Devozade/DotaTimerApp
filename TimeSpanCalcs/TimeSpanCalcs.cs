@@ -1,6 +1,9 @@
-﻿namespace DotaTimerApp
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+
+namespace TimeSpanTools
 {
-    internal class TimeSpanCalc
+    public class TimeSpanCalcs
     {
         public static TimeSpan TimeRemainingUntil(TimeSpan currentTime, TimeSpan timeToCheckAgainst)
         {
@@ -28,6 +31,10 @@
 
             return newTime;
         }
+        public static TimeSpan IncrementTime(string timeStampStart, string timeStampToAdd)
+        {
+            return TimeSpan.Parse(timeStampStart) + TimeSpan.Parse(timeStampToAdd);
+        }
         public static TimeSpan DecreaseTime(TimeSpan currentTimeSpan, int timeToSubtractMinutes)
         {
             TimeSpan newTime = currentTimeSpan - TimeSpan.FromMinutes(timeToSubtractMinutes);
@@ -45,6 +52,32 @@
         public static TimeSpan StringToTimespan(string timeString)
         {
          return TimeSpan.Parse(timeString);
+        }
+        public static bool HasTimeStampElapsed(TimeSpan currentTime, TimeSpan timeToCheck)
+        {
+            if (currentTime >= timeToCheck)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool IsZero(TimeSpan input)
+        {
+            if (input == TimeSpan.Zero)
+            {
+                return true;
+            }
+            return false;        
+        }
+        public static double TimeStampToMinutes(string timeString)
+        {
+            TimeSpan tempTime = TimeSpan.Parse(timeString);
+
+            return tempTime.TotalMinutes;
+
         }
 
     }
