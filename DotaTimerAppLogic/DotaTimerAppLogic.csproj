@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotaGameTimersClassLibrary\DotaGameTimersClassLibrary.csproj" />
     <ProjectReference Include="..\DotaTimerAppStringsLibrary\DotaTimerAppStringsLibrary.csproj" />
-    <ProjectReference Include="..\TimeSpanCalcs\TimeSpanTools.csproj" />
+    <ProjectReference Include="..\StopWatchWithTimerLogic\StopWatchWithTimerLogic.csproj" />
   </ItemGroup>
 
 </Project>

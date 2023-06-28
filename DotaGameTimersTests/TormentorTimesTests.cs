@@ -37,7 +37,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void ResetDefaultsTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             TimeSpan killTime = TimeSpan.FromMinutes(1);
 
             tormentorInstance.KillDireTormentor(killTime);
@@ -51,7 +51,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void IntitialSpawnTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
 
             TimeSpan[] spawnTimes = tormentorInstance.GetRespawns();
 
@@ -63,7 +63,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void TormentorsAreUpTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
 
             bool[] statuses = tormentorInstance.AreTormentorsUp();
 
@@ -72,7 +72,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void KillRadiantTormentorSpawnTimeTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             tormentorInstance.KillRadiantTormentor(TimeSpan.FromMinutes(2));
 
             TimeSpan expectedResult = TimeSpan.FromMinutes(2) + TimeSpanCalcs.StringToTimespan(DotaConst.TormentorRespawnTime);
@@ -84,7 +84,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void KillDireTormentorSpawnTimeTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             tormentorInstance.KillDireTormentor(TimeSpan.FromMinutes(2));
 
             TimeSpan expectedResult = TimeSpan.FromMinutes(2) + TimeSpanCalcs.StringToTimespan(DotaConst.TormentorRespawnTime);
@@ -96,7 +96,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void RadiantTormentorRespawnRemainingSeedTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             tormentorInstance.KillRadiantTormentor(TimeSpan.FromMinutes(22));
 
             TimeSpan testTime = TimeSpan.FromMinutes(24);
@@ -109,7 +109,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void DireTormentorRespawnRemainingSeedTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             tormentorInstance.KillDireTormentor(TimeSpan.FromMinutes(24));
 
             TimeSpan testTime = TimeSpan.FromMinutes(28);
@@ -122,7 +122,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void GetTormentorDeathTimeStampTest()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             TimeSpan testTime = TimeSpan.FromMinutes(5);
 
             tormentorInstance.KillRadiantTormentor(testTime);
@@ -135,7 +135,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void CheckDireTormentorRespawnEvent()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             TimeSpan deathTime = TimeSpan.FromMinutes(22);
 
             tormentorInstance.KillRadiantTormentor(deathTime);
@@ -151,7 +151,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void CheckRadiantTormentorRespawnEvent()
         {
-            TormentorsStateAndTime tormentorInstance = new();
+            TormentorsStateAndTimes tormentorInstance = new();
             TimeSpan deathTime = TimeSpan.FromMinutes(28);
 
             tormentorInstance.KillDireTormentor(deathTime);

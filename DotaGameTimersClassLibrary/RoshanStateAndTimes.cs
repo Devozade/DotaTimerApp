@@ -2,7 +2,7 @@
 
 namespace DotaGameTimersClassLibrary
 {
-    public class RoshanStateTimes
+    public class RoshanStateAndTimes
     {
         private int _currentRoshanNumber;
         private TimeSpan _lastRoshanDeathTimeStamp;
@@ -13,7 +13,7 @@ namespace DotaGameTimersClassLibrary
         private bool _canRoshanBeAliveNow;
         private bool _IsRoshanAlive;
 
-        public RoshanStateTimes()
+        public RoshanStateAndTimes()
         {
             SetDefaults();
         }
@@ -126,11 +126,17 @@ namespace DotaGameTimersClassLibrary
             return _aegisExpiryTimeStamp;
         }
 
+        public void AegisCarrierDead()
+        {
+            _isAegisInPlay = false;
+            _aegisExpiryTimeStamp = TimeSpan.Zero;
+        }
         private void UpdateAegisFlag(TimeSpan aegisRemaining, TimeSpan currentTime)
         {
             if (TimeSpanCalcs.HasTimeStampElapsed(currentTime, aegisRemaining))
             {
                 _isAegisInPlay = false;
+                _aegisExpiryTimeStamp = TimeSpan.Zero;
             }
             else
             {

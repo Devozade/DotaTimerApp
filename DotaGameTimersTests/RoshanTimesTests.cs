@@ -36,7 +36,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void ResetDefaultsTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
             roshanInstance.ResetAll();
@@ -48,7 +48,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void RoshanDeadStatusTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
 
             bool[] roshanStatus = roshanInstance.IsRoshanAlive();
@@ -58,7 +58,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void RoshanMinRespawnTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
 
@@ -70,7 +70,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void RoshanMaxRespawnTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
 
@@ -82,7 +82,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void RoshanDeathTimeStampTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             TimeSpan deathTime = TimeSpan.FromMinutes(2);
             roshanInstance.SetKilled(deathTime);
@@ -98,7 +98,7 @@ namespace DotaGameTimersTests
             TimeSpan checkTime = TimeSpan.FromMinutes(4);
             TimeSpan expectedResult = TimeSpan.FromMinutes(6);
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
 
             TimeSpan[] spawnsRemaining = roshanInstance.GetRespawnsRemaining(checkTime);
@@ -112,7 +112,7 @@ namespace DotaGameTimersTests
             TimeSpan checkTime = TimeSpan.FromMinutes(5);
             TimeSpan expectedResult = TimeSpan.FromMinutes(8);
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
 
             TimeSpan[] spawnsRemaining = roshanInstance.GetRespawnsRemaining(checkTime);
@@ -125,7 +125,7 @@ namespace DotaGameTimersTests
             TimeSpan deathTime = TimeSpan.FromMinutes(3);
             TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMinMinutes);                     
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
             roshanInstance.GetRespawnsRemaining(checkTime);
 
@@ -138,7 +138,7 @@ namespace DotaGameTimersTests
             TimeSpan deathTime = TimeSpan.FromMinutes(3);
             TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMinMinutes);
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
             roshanInstance.GetRespawnsRemaining(checkTime);
 
@@ -152,7 +152,7 @@ namespace DotaGameTimersTests
             TimeSpan deathTime = TimeSpan.FromMinutes(3);
             TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMaxMinutes);
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
             roshanInstance.GetRespawnsRemaining(checkTime);
 
@@ -166,7 +166,7 @@ namespace DotaGameTimersTests
             TimeSpan deathTime = TimeSpan.FromMinutes(3);
             TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMaxMinutes);
 
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);
             roshanInstance.GetRespawnsRemaining(checkTime);
 

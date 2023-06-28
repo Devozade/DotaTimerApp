@@ -35,7 +35,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void AegisInPlayTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
 
@@ -46,7 +46,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void AegisExpiryTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             roshanInstance.SetKilled(TimeSpan.FromMinutes(1));
 
@@ -57,7 +57,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void AegisRemainingTest()
         {
-            RoshanStateTimes roshanInstance = new();
+            RoshanStateAndTimes roshanInstance = new();
 
             TimeSpan timeToCheck = TimeSpan.FromMinutes(4);
 

@@ -2,7 +2,7 @@
 
 namespace DotaGameTimersClassLibrary
 {
-    public class TormentorsStateAndTime
+    public class TormentorsStateAndTimes
     {
         private TimeSpan _lastRadiantDeath;
         private TimeSpan _lastDireDeath;
@@ -12,7 +12,7 @@ namespace DotaGameTimersClassLibrary
         private bool _isRadiantUp;
         private bool _isDireUp;
 
-        public TormentorsStateAndTime()
+        public TormentorsStateAndTimes()
         {
             SetDefaults();
         }

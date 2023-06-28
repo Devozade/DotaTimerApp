@@ -7,12 +7,12 @@ using TimeSpanTools;
 
 namespace DotaGameTimersClassLibrary
 {
-    public class MiscStateTimes
+    public class MiscStateAndTimes
     {
         private TimeSpan _nextWisdomRuneSpawn;
         private TimeSpan _nextLotusSpawn;
 
-        public MiscStateTimes()
+        public MiscStateAndTimes()
         {
             SetDefaults();
         }

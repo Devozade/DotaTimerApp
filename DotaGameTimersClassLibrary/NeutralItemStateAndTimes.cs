@@ -9,13 +9,13 @@ using TimeSpanTools;
 
 namespace DotaGameTimersClassLibrary
 {
-    public class NeutralItemStateTimes
+    public class NeutralItemStateAndTimes
     {
         private int _currentNeutralTier;
         private int _nextNeutralTier;
         private TimeSpan _nextTierTime;
 
-        public NeutralItemStateTimes()
+        public NeutralItemStateAndTimes()
         {
             SetDefaults();        
         }

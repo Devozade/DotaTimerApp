@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DotaTimerAppStringsLibrary\DotaTimerAppStringsLibrary.csproj" />
-    <ProjectReference Include="..\TimeSpanCalcs\TimeSpanTools.csproj" />
-  </ItemGroup>
-
 </Project>

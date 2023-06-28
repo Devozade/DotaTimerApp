@@ -38,7 +38,7 @@ namespace DotaGameTimersTests
         public void ResetTest()
         {
             TimeSpan testTime = TimeSpanCalcs.StringToTimespan(DotaConst.LotusSpawnSeedTime);
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             classInstance.GetLotusRemaining(testTime);
 
@@ -50,8 +50,8 @@ namespace DotaGameTimersTests
         }
         [TestMethod]
         public void GetFirstLotusTest()
-        {            
-            MiscStateTimes classInstance = new();                      
+        {
+            MiscStateAndTimes classInstance = new();                      
 
             TimeSpan testTS = classInstance.GetNextLotusSpawns();
 
@@ -61,7 +61,7 @@ namespace DotaGameTimersTests
         public void IncrementLotusTest()
         {
             TimeSpan testTime = TimeSpanCalcs.StringToTimespan(DotaConst.LotusRespawnTime);
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             classInstance.GetLotusRemaining(testTime);
 
@@ -74,7 +74,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void GetFirstWisdomTest()
         {
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             TimeSpan testTS = classInstance.GetNextWisdomSpawns();
 
@@ -87,7 +87,7 @@ namespace DotaGameTimersTests
         public void IncrementWisdomTest()
         {
             TimeSpan testTime = TimeSpanCalcs.StringToTimespan(DotaConst.WisdomRuneSpawnSeedTime);
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             classInstance.GetWisdomRemaining(testTime);
 
@@ -101,7 +101,7 @@ namespace DotaGameTimersTests
         public void RemainingLotusTest()
         {
             TimeSpan testTime = TimeSpan.FromMinutes(2);
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             TimeSpan testTS = classInstance.GetLotusRemaining(testTime);
 
@@ -113,7 +113,7 @@ namespace DotaGameTimersTests
         public void RemainingWisdomTest()
         {
             TimeSpan testTime = TimeSpan.FromMinutes(4);
-            MiscStateTimes classInstance = new();
+            MiscStateAndTimes classInstance = new();
 
             TimeSpan testTS = classInstance.GetWisdomRemaining(testTime);
 

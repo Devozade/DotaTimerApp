@@ -35,7 +35,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void ResetTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
 
             neutralItemsInstance.IncrementCurrentTier();
             neutralItemsInstance.ResetAll();
@@ -48,7 +48,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void IncrementCurrentTierTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
             neutralItemsInstance.IncrementCurrentTier();
 
             int[] tiers = neutralItemsInstance.GetCurrentAndNextTier();
@@ -59,7 +59,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void IncrementNextTierTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
             neutralItemsInstance.IncrementCurrentTier();
 
             int[] tiers = neutralItemsInstance.GetCurrentAndNextTier();
@@ -70,7 +70,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void IncrementCurrentToFiveCheckNextTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
             neutralItemsInstance.IncrementCurrentTier();
             neutralItemsInstance.IncrementCurrentTier();
             neutralItemsInstance.IncrementCurrentTier();
@@ -85,7 +85,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void IncrementCurrentTierMoreThanFiveTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
             neutralItemsInstance.IncrementCurrentTier();
             neutralItemsInstance.IncrementCurrentTier();
             neutralItemsInstance.IncrementCurrentTier();
@@ -102,7 +102,7 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void GetNextTierTimeStampTest()
         {
-            NeutralItemStateTimes neutralItemsInstance = new();
+            NeutralItemStateAndTimes neutralItemsInstance = new();
             neutralItemsInstance.IncrementCurrentTier();
 
             TimeSpan expected = TimeSpanCalcs.StringToTimespan(DotaConst.NeutralTier2Time);

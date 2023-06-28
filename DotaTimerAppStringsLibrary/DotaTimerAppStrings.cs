@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DotaTimerApp
+namespace DotaTimerAppStringsLibrary
 {
     public class DotaTimerAppStrings
     {
@@ -13,51 +13,54 @@ namespace DotaTimerApp
         //GENERICS
         public static string _radiant = "Radiant";
         public static string _dire = "Dire";
+        public static string _null = "N/A";
 
         //ROSHAN
-        public static string _roshanNumber = "Current Roshan #:";
-        public static string _roshanLastDeath = "Last Death:";
-        public static string _roshanDrops = "Drops:";
+        private static string _roshanNumber = "Current Roshan #:";
+        private static string _roshanLastDeath = "Last Death:";
+        private static string _roshanDrops = "Drops:";
 
-        public static string _roshDropsOne = "Aegis";
-        public static string _roshDropsTwo = "Aegis && Cheese";
-        public static string _roshDropsThreePlus = "Aegis, Cheese && Aghs Radiant/Dire Refresher";
+        private static string _roshDropsOne = "Aegis";
+        private static string _roshDropsTwo = "Aegis && Cheese";
+        private static string _roshDropsThreePlus = "Aegis, Cheese && Aghs Radiant/Dire Refresher";
 
-        public static string[] _roshDrops = { _roshDropsOne, _roshDropsTwo, _roshDropsThreePlus };
+        private static string[] _roshDrops = { _roshDropsOne, _roshDropsTwo, _roshDropsThreePlus };
 
-        public static string _roshanNextSpawns = "Next Spawn Interval:";
+        private static string _roshanNextSpawns = "Next Spawn Interval:";
 
         //AEGIS
-        public static string _aegisTimer = "Current Aegis Timer:";
-        public static string _aegisInPlay = "Aegis in Play:";
+        private static string _aegisTimer = "Current Aegis Timer:";
+        private static string _aegisInPlay = "Aegis in Play:";
 
         //ROSHAN TTS AEGIS
         public static string _tTSRoshanDied = "R I P Roshan";
         public static string _tTSAegisDied = "Aegis carrier dead";
 
-        public static string _tTSRoshanMinReminder = "Roshan potentially respawning in";
-        public static string _tTSRoshanMaxReminder = "Roshan definitely respawning in";
+        private static string _tTSRoshanMinReminder = "Roshan potentially respawning in";
+        private static string _tTSRoshanMaxReminder = "Roshan definitely respawning in";
 
         //TORMENTOR
-        public static string _tormentorSpawn = "Tormentor Spawn:";
-        public static string _tormentorDied = "Tormentor Killed";
+        private static string _tormentorSpawn = "Tormentor Spawn:";
+        private static string _tormentorDied = "Tormentor Killed";
 
         //LOTUS
-        public static string _lotusSpawn = "Next Lotus Spawn:";
-        public static string _tTSlotusReminder = "Lotuses spawning in";
+        private static string _lotusSpawn = "Next Lotus Spawn:";
+        private static string _tTSlotusReminder = "Lotuses spawning in";
 
         //WISDOM
-        public static string _wisdomSpawn = "Next Wisdom Rune Spawn";
-        public static string _tTSWisdomReminder = "Wisdom runes spawning in";
+        private static string _wisdomSpawn = "Next Wisdom Rune Spawn";
+        private static string _tTSWisdomReminder = "Wisdom runes spawning in";
 
 
         //NEUTRALITEMS
-        public static string _neutralsTooEarly = "Too early for Neutral drops.";
-        public static string _neutralsNextTierAt = "Next tier starts at";
+        private static string _neutralsTooEarly = "Too early for Neutral drops.";
+        private static string _neutralsNextTierAt = "Next tier starts at";
 
         public static string _tTSNeutralTierChange = "Entering next neutral tier.";
-
-        public static string BuildTimeStampString(string baseString, TimeSpan timeStamp)
+        
+        
+        
+        private static string BuildTimeStampString(string baseString, TimeSpan timeStamp)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(baseString);
@@ -67,12 +70,12 @@ namespace DotaTimerApp
             return sb.ToString();
         }
 
-        public static string BuildTimeStampStringNA(string baseString)
+        private static string BuildTimeStampStringNA(string baseString)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(baseString);
             sb.Append(" ");
-            sb.Append("N/A");
+            sb.Append(_null);
 
             return sb.ToString();
         }
@@ -124,6 +127,25 @@ namespace DotaTimerApp
 
             return sb.ToString();
         }
+        public static string RoshRespawnsNull()
+        {
+            return BuildTimeStampStringNA(_roshanNextSpawns);
+        }
+
+        public static string RoshanLastDeath(TimeSpan timeStamp)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(_roshanLastDeath);
+            sb.Append(" ");
+            if(timeStamp == TimeSpan.Zero)
+            {
+                sb.Append("_null");
+                return sb.ToString();
+            }
+            sb.Append(timeStamp.ToString("mm\\:ss"));
+
+            return sb.ToString();
+        }
 
         public static string AppendStringsWhiteSpaced(string stringA, string stringB)
         {
@@ -147,5 +169,15 @@ namespace DotaTimerApp
             return sb.ToString();
         }
 
+        public static string AegisInPlay(bool b)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(_aegisInPlay);
+            sb.Append(" ");
+            if (b) { sb.Append("Yes"); }
+            else { sb.Append("No"); }
+            return sb.ToString();
+
+        }
     }
 }
