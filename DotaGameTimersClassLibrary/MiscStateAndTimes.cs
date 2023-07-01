@@ -12,6 +12,9 @@ namespace DotaGameTimersClassLibrary
         private TimeSpan _nextWisdomRuneSpawn;
         private TimeSpan _nextLotusSpawn;
 
+        public event EventHandler? LotusSpawned;
+        public event EventHandler? WisdomRuneSpawned;
+
         public MiscStateAndTimes()
         {
             SetDefaults();
@@ -29,15 +32,16 @@ namespace DotaGameTimersClassLibrary
         public TimeSpan GetWisdomRemaining(TimeSpan currentTime)
         {
             TimeSpan wisdomRemains = TimeSpanCalcs.TimeRemainingUntil(currentTime, _nextWisdomRuneSpawn);
-            UpdateWisdomSpawn(wisdomRemains, currentTime);
+            UpdateWisdomSpawn(currentTime);
             return wisdomRemains;
         }
 
-        private void UpdateWisdomSpawn(TimeSpan remains, TimeSpan currentTime)
+        private void UpdateWisdomSpawn(TimeSpan currentTime)
         {
-            if (TimeSpanCalcs.HasTimeStampElapsed(currentTime, remains))
+            if (TimeSpanCalcs.HasTimeStampElapsed(currentTime, _nextWisdomRuneSpawn))
             {
                 _nextWisdomRuneSpawn = _nextWisdomRuneSpawn + TimeSpanCalcs.StringToTimespan(DotaTimeConstants.WisdomRuneRespawnTime);
+                WisdomRuneSpawned?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -48,14 +52,15 @@ namespace DotaGameTimersClassLibrary
         public TimeSpan GetLotusRemaining(TimeSpan currentTime)
         {
             TimeSpan lotusRemains = TimeSpanCalcs.TimeRemainingUntil(currentTime, _nextLotusSpawn);
-            UpdateLotusSpawn(lotusRemains, currentTime);
+            UpdateLotusSpawn(currentTime);
             return lotusRemains;
         }
-        private void UpdateLotusSpawn(TimeSpan remains, TimeSpan currentTime)
+        private void UpdateLotusSpawn(TimeSpan currentTime)
         {
-            if (TimeSpanCalcs.HasTimeStampElapsed(currentTime, remains))
+            if (TimeSpanCalcs.HasTimeStampElapsed(currentTime, _nextLotusSpawn))
             {
                 _nextLotusSpawn = _nextLotusSpawn + TimeSpanCalcs.StringToTimespan(DotaTimeConstants.LotusRespawnTime);
+                LotusSpawned?.Invoke(this, EventArgs.Empty);
             }       
         }
 

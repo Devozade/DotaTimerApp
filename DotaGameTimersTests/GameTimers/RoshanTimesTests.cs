@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeSpanTools;
 using DotaConst = DotaGameTimersClassLibrary.DotaTimeConstants;
 
-namespace DotaGameTimersTests
+namespace DotaGameTimersTests.GameTimers
 {
     [TestClass]
     public class RoshanTimesTests
@@ -77,7 +77,7 @@ namespace DotaGameTimersTests
             TimeSpan[] roshRespawns = roshanInstance.GetRespawns();
 
             Assert.AreEqual(TimeSpan.FromMinutes(12), roshRespawns[1]);
-        } 
+        }
 
         [TestMethod]
         public void RoshanDeathTimeStampTest()
@@ -123,7 +123,7 @@ namespace DotaGameTimersTests
         public void RoshanEarlyRespawnElapsedCanBeAliveTest()
         {
             TimeSpan deathTime = TimeSpan.FromMinutes(3);
-            TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMinMinutes);                     
+            TimeSpan checkTime = deathTime + TimeSpanCalcs.StringToTimespan(DotaConst.RoshanRespawnMinMinutes);
 
             RoshanStateAndTimes roshanInstance = new();
             roshanInstance.SetKilled(deathTime);

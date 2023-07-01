@@ -3,7 +3,7 @@ using DotaGameTimersClassLibrary;
 using DotaConst = DotaGameTimersClassLibrary.DotaTimeConstants;
 using TimeSpanTools;
 
-namespace DotaGameTimersTests
+namespace DotaGameTimersTests.GameTimers
 {
     [TestClass]
     public class MiscStateTimesTests
@@ -51,12 +51,12 @@ namespace DotaGameTimersTests
         [TestMethod]
         public void GetFirstLotusTest()
         {
-            MiscStateAndTimes classInstance = new();                      
+            MiscStateAndTimes classInstance = new();
 
             TimeSpan testTS = classInstance.GetNextLotusSpawns();
 
             Assert.AreEqual(TimeSpanCalcs.StringToTimespan(DotaConst.LotusSpawnSeedTime), testTS);
-        }        
+        }
         [TestMethod]
         public void IncrementLotusTest()
         {
@@ -120,7 +120,7 @@ namespace DotaGameTimersTests
             TimeSpan expectedTime = TimeSpanCalcs.StringToTimespan(DotaConst.WisdomRuneSpawnSeedTime) - testTime;
 
             Assert.AreEqual(expectedTime, testTS);
-        }        
+        }
 
     }
 }

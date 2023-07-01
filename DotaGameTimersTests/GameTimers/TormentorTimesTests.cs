@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using TimeSpanTools;
 using DotaConst = DotaGameTimersClassLibrary.DotaTimeConstants;
 
-namespace DotaGameTimersTests
+namespace DotaGameTimersTests.GameTimers
 {
     [TestClass]
     public class TormentorTimesTests

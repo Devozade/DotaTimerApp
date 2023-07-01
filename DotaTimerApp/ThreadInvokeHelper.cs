@@ -1,4 +1,7 @@
-﻿namespace DotaTimerApp
+﻿using System.Drawing;
+using System.Resources;
+
+namespace DotaTimerApp
 {
     internal class ThreadInvokeHelper
     {
@@ -55,23 +58,6 @@
             else
             {
                 method();
-            }
-        }
-
-        public static void updateImage(Form form,PictureBox pictureBox, string resourceName)
-        {
-            Image image = (Image)Properties.Resources.ResourceManager.GetObject(resourceName);
-
-            if (image != null)
-            {
-                if (pictureBox.InvokeRequired)
-                {
-                    pictureBox.Invoke(new Action(() => {pictureBox.Image = image;}));
-                }
-                else
-                {
-                    pictureBox.Image = image;
-                }
             }
         }
     }

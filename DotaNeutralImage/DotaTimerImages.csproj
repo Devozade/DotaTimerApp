@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\healingLotus.png" />
+    <None Remove="Resources\neutralToken1.png" />
+    <None Remove="Resources\neutralToken2.png" />
+    <None Remove="Resources\neutralToken3.png" />
+    <None Remove="Resources\neutralToken4.png" />
+    <None Remove="Resources\neutralToken5.png" />
+    <None Remove="Resources\wisdomRune.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\healingLotus.png" />
+    <Resource Include="Resources\neutralToken1.png" />
+    <Resource Include="Resources\neutralToken2.png" />
+    <Resource Include="Resources\neutralToken3.png" />
+    <Resource Include="Resources\neutralToken4.png" />
+    <Resource Include="Resources\neutralToken5.png" />
+    <Resource Include="Resources\wisdomRune.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource1.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

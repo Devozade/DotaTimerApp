@@ -12,6 +12,9 @@ namespace DotaGameTimersClassLibrary
         private bool _isRadiantUp;
         private bool _isDireUp;
 
+        public event EventHandler? RadiantTormentorSpawned;
+        public event EventHandler? DireTormentorSpawned;
+
         public TormentorsStateAndTimes()
         {
             SetDefaults();
@@ -83,10 +86,12 @@ namespace DotaGameTimersClassLibrary
             if (tormentorRemaining[0] == TimeSpan.Zero)
             {
                 _isRadiantUp = true;
+                RadiantTormentorSpawned?.Invoke(this, EventArgs.Empty);
             }
             if (tormentorRemaining[1] == TimeSpan.Zero)
             {
                 _isDireUp = true;
+                DireTormentorSpawned?.Invoke(this, EventArgs.Empty);
             }
         }
         public bool[] AreTormentorsUp()

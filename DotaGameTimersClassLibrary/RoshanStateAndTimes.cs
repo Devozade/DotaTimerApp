@@ -13,6 +13,11 @@ namespace DotaGameTimersClassLibrary
         private bool _canRoshanBeAliveNow;
         private bool _IsRoshanAlive;
 
+        public event EventHandler? MinSpawnReached;
+        public event EventHandler? MaxSpawnReached;
+        public event EventHandler? AegisExpired;
+
+
         public RoshanStateAndTimes()
         {
             SetDefaults();
@@ -100,10 +105,12 @@ namespace DotaGameTimersClassLibrary
             if (roshanRemaining[0] == TimeSpan.Zero)
             {
                 _canRoshanBeAliveNow = true;
+                MinSpawnReached?.Invoke(this, EventArgs.Empty);
             }
             if (roshanRemaining[1] == TimeSpan.Zero)
             {
                 _IsRoshanAlive = true;
+                MaxSpawnReached?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -137,6 +144,7 @@ namespace DotaGameTimersClassLibrary
             {
                 _isAegisInPlay = false;
                 _aegisExpiryTimeStamp = TimeSpan.Zero;
+                AegisExpired?.Invoke(this, EventArgs.Empty);
             }
             else
             {

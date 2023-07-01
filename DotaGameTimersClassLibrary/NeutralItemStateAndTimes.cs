@@ -15,6 +15,8 @@ namespace DotaGameTimersClassLibrary
         private int _nextNeutralTier;
         private TimeSpan _nextTierTime;
 
+        public event EventHandler? NextNeutralTier;
+
         public NeutralItemStateAndTimes()
         {
             SetDefaults();        
@@ -81,6 +83,7 @@ namespace DotaGameTimersClassLibrary
             if (timeLeft == TimeSpan.Zero)
             {
                 IncrementCurrentTier();
+                NextNeutralTier?.Invoke(this, EventArgs.Empty);
             }
         }
     }

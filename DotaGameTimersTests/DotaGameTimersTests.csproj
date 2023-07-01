@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotaGameTimersClassLibrary\DotaGameTimersClassLibrary.csproj" />
+    <ProjectReference Include="..\DotaTimerAppStringsLibrary\DotaTimerAppStringsLibrary.csproj" />
   </ItemGroup>
 
 </Project>

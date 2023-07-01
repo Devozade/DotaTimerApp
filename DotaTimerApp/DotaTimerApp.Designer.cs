@@ -1,4 +1,8 @@
-﻿namespace DotaTimerApp
+﻿using System.Resources;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace DotaTimerApp
 {
     partial class DotaTimerAppForm
     {
@@ -287,7 +291,7 @@
             // 
             // lotusPicture
             // 
-            lotusPicture.Image = Properties.Resources.healingLotus;
+            lotusPicture.Image = null;
             lotusPicture.Location = new Point(25, 372);
             lotusPicture.Name = "lotusPicture";
             lotusPicture.Size = new Size(44, 32);
@@ -297,7 +301,7 @@
             // 
             // wisdomRunePicture
             // 
-            wisdomRunePicture.Image = Properties.Resources.wisdomRune;
+            wisdomRunePicture.Image = null;
             wisdomRunePicture.Location = new Point(25, 334);
             wisdomRunePicture.Name = "wisdomRunePicture";
             wisdomRunePicture.Size = new Size(44, 32);

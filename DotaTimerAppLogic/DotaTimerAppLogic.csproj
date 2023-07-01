@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotaGameTimersClassLibrary\DotaGameTimersClassLibrary.csproj" />
+    <ProjectReference Include="..\DotaNeutralImage\DotaTimerImages.csproj" />
     <ProjectReference Include="..\DotaTimerAppStringsLibrary\DotaTimerAppStringsLibrary.csproj" />
     <ProjectReference Include="..\StopWatchWithTimerLogic\StopWatchWithTimerLogic.csproj" />
+    <ProjectReference Include="..\TimeSpanCalcs\TimeSpanTools.csproj" />
   </ItemGroup>
 
 </Project>
